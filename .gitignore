@@ -1,0 +1,7 @@
+out/
+*.png
+*.jpg
+*.jpeg
+*.tiff
+*.bmp
+.DS_Store
