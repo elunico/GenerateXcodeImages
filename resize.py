@@ -3,6 +3,7 @@ import argparse
 import os.path
 import os
 
+
 def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument('-i', '--image', default='app-icon.png', help='Path to the image')
@@ -63,17 +64,18 @@ def main():
         os.makedirs(os.path.join('out', 'mac'))
         os.makedirs(os.path.join('out', 'ios'))
 
-
+    name = os.path.split(arguments.image)[-1]
     for i in new_sizes:
         size = i[0]
-        name = f'{arguments.image.replace(".png", "")}{i[1]}.png'.replace('/', '_')
+        out_name = f'{name.replace(".png", "")}{i[1]}.png'.replace('/', '_')
         resized = cv2.resize(image, size)
         if 'mac' in i[1]:
-            print("Writing mac image '{}', ({}x{})".format(name, i[0][0], i[0][1]))
-            cv2.imwrite(os.path.join('out', 'mac', name), resized)
+            print("Writing mac image '{}', ({}x{})".format(out_name, i[0][0], i[0][1]))
+            cv2.imwrite(os.path.join('out', 'mac', out_name), resized)
         else:
-            print("Writing ios image '{}', ({}x{})".format(name, i[0][0], i[0][1]))
-            cv2.imwrite(os.path.join('out', 'ios', name), resized)
+            print("Writing ios image '{}', ({}x{})".format(out_name, i[0][0], i[0][1]))
+            cv2.imwrite(os.path.join('out', 'ios', out_name), resized)
+
 
 if __name__ == '__main__':
     main()
